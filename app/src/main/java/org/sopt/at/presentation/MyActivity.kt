@@ -1,4 +1,4 @@
-package org.sopt.at
+package org.sopt.at.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
-class MainActivity : ComponentActivity() {
+class MyActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
