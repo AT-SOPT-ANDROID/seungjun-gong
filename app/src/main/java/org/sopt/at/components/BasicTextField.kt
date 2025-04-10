@@ -41,9 +41,10 @@ fun BasicTextField(
             focusedContainerColor = basicColors.gray900,
             unfocusedBorderColor = Color.Transparent,
             focusedBorderColor = basicColors.gray600,
-
             cursorColor = Color.White,
-        ),
+            focusedTextColor = Color.White,
+            unfocusedTextColor = Color.White,
+            ),
         shape = RoundedCornerShape(4.dp),
         singleLine = true,
         trailingIcon = trailingIcon,

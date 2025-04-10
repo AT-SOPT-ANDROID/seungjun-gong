@@ -13,6 +13,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.sopt.at.R
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
+import org.sopt.at.ui.theme.basicColors
 
 
 @Composable
@@ -25,7 +26,8 @@ fun BasicTopBar(
         Icon (
             imageVector = ImageVector.vectorResource(R.drawable.ic_back_arrow),
             contentDescription = stringResource(R.string.btn_basic_topbar_back),
-            tint = Color.White)
+            tint = basicColors.gray400,
+        )
     }
 }
 

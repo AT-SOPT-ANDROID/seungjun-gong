@@ -17,6 +17,7 @@
             android:name=".presentation.SignInActivity"
             android:exported="true"
             android:label="@string/title_activity_sign_in"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.ATSOPTANDROID">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +30,7 @@
             android:name=".presentation.SignUpActivity"
             android:exported="false"
             android:label="@string/title_activity_sign_up"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.ATSOPTANDROID" />
 
         <activity
