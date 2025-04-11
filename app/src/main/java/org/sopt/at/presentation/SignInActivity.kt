@@ -1,13 +1,11 @@
 package org.sopt.at.presentation
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -55,6 +53,7 @@ import org.sopt.at.R
 import org.sopt.at.components.BasicTextField
 import org.sopt.at.components.BasicTopBar
 import org.sopt.at.components.PasswordTextField
+import org.sopt.at.data.SharedPreferencesManager
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.basicColors
 
@@ -62,8 +61,21 @@ class SignInActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        SharedPreferencesManager.init(context = this)
         setContent {
+            if (intent.getBooleanExtra("signup_success", false)) {
+                Toast.makeText(this, "회원가입 성공!", Toast.LENGTH_SHORT).show()
+            }
+
             ATSOPTANDROIDTheme {
+                if (SharedPreferencesManager.isLoggedIn()) {
+                    val intent = Intent(this, MyActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    }
+                    this.startActivity(intent)
+                }
+
                 val snackbarHostState = remember { SnackbarHostState() }
 
                 Scaffold(
@@ -93,16 +105,16 @@ fun SignInScreen(
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
-    var savedId by remember { mutableStateOf("") }
-    var savedPw by remember { mutableStateOf("") }
+//    var savedId by remember { mutableStateOf("") }
+//    var savedPw by remember { mutableStateOf("") }
 
-    val launcher =
-        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                savedId = result.data?.getStringExtra("user_id") ?: ""
-                savedPw = result.data?.getStringExtra("user_password") ?: ""
-            }
-        }
+//    val launcher =
+//        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+//            if (result.resultCode == Activity.RESULT_OK) {
+//                savedId = result.data?.getStringExtra("user_id") ?: ""
+//                savedPw = result.data?.getStringExtra("user_password") ?: ""
+//            }
+//        }
 
     Column(
         modifier = modifier
@@ -134,13 +146,16 @@ fun SignInScreen(
         SignInButton(
             inputId, inputPassword,
             onClick = {
-                if (inputId == savedId && inputPassword == savedPw) {
+                if (SharedPreferencesManager.login(id = inputId, password = inputPassword)) {
+//                    val intent = Intent(context, MyActivity::class.java).apply {
+//                        putExtra("user_id", inputId)
+//                        putExtra("user_password", inputPassword)
+//                    }
+//                    inputId = ""
+//                    inputPassword = ""
                     val intent = Intent(context, MyActivity::class.java).apply {
-                        putExtra("user_id", inputId)
-                        putExtra("user_password", inputPassword)
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     }
-                    inputId = ""
-                    inputPassword = ""
                     context.startActivity(intent)
                 } else {
                     scope.launch {
@@ -168,7 +183,8 @@ fun SignInScreen(
                 stringResource(R.string.btn_sign_up),
                 onClick = {
                     val intent = Intent(context, SignUpActivity::class.java)
-                    launcher.launch(intent)
+//                    launcher.launch(intent)
+                    context.startActivity(intent)
                 })
         }
         Spacer(modifier = Modifier.height(25.dp))

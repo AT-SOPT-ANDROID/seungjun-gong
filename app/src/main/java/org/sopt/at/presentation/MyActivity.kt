@@ -1,6 +1,5 @@
 package org.sopt.at.presentation
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -29,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
+import org.sopt.at.data.SharedPreferencesManager
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.basicColors
 
@@ -37,8 +37,11 @@ class MyActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val userId = intent.getStringExtra("user_id") ?: ""
-        val userPassword = intent.getStringExtra("user_password") ?: ""
+//        val userId = intent.getStringExtra("user_id") ?: ""
+//        val userPassword = intent.getStringExtra("user_password") ?: ""
+
+        val userId = SharedPreferencesManager.getUserId() ?: ""
+        val userPassword = SharedPreferencesManager.getUserPw() ?: ""
 
         setContent {
             ATSOPTANDROIDTheme {
@@ -71,12 +74,18 @@ fun MyScreen(
         )
         OutlinedButton(
             onClick = {
-                val intent = Intent().apply {
-                    putExtra("user_id", id)
-                    putExtra("user_password", password)
+//                val intent = Intent().apply {
+//                    putExtra("user_id", id)
+//                    putExtra("user_password", password)
+//                }
+//                (context as? Activity)?.setResult(Activity.RESULT_OK, intent)
+//                (context as? Activity)?.finish()
+                SharedPreferencesManager.logout()
+
+                val intent = Intent(context, SignInActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 }
-                (context as? Activity)?.setResult(Activity.RESULT_OK, intent)
-                (context as? Activity)?.finish()
+                context.startActivity(intent)
             },
             modifier = Modifier
                 .fillMaxWidth()

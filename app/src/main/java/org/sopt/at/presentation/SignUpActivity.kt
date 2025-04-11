@@ -40,6 +40,7 @@ import org.sopt.at.components.BasicTextField
 import org.sopt.at.components.BasicTopBar
 import org.sopt.at.components.PasswordTextField
 import org.sopt.at.components.SignUpErrorDialog
+import org.sopt.at.data.SharedPreferencesManager
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.basicColors
 
@@ -73,12 +74,18 @@ fun SignUpScreen() {
 
         2 -> {
             SignUpPassword { password ->
-                val intent = Intent().apply {
-                    putExtra("user_id", id)
-                    putExtra("user_password", password)
+//                val intent = Intent().apply {
+//                    putExtra("user_id", id)
+//                    putExtra("user_password", password)
+//                }
+//                (context as? Activity)?.setResult(Activity.RESULT_OK, intent)
+//                (context as? Activity)?.finish()
+                SharedPreferencesManager.registerUser(id, password)
+                val intent = Intent(context, SignInActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    putExtra("signup_success", true)
                 }
-                (context as? Activity)?.setResult(Activity.RESULT_OK, intent)
-                (context as? Activity)?.finish()
+                context.startActivity(intent)
             }
         }
     }
