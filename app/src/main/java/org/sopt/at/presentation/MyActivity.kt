@@ -28,7 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
-import org.sopt.at.data.SharedPreferencesManager
+import org.sopt.at.utils.SharedPreferencesManager
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.basicColors
 
@@ -37,8 +37,6 @@ class MyActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-//        val userId = intent.getStringExtra("user_id") ?: ""
-//        val userPassword = intent.getStringExtra("user_password") ?: ""
 
         val userId = SharedPreferencesManager.getUserId() ?: ""
         val userPassword = SharedPreferencesManager.getUserPw() ?: ""
@@ -74,12 +72,6 @@ fun MyScreen(
         )
         OutlinedButton(
             onClick = {
-//                val intent = Intent().apply {
-//                    putExtra("user_id", id)
-//                    putExtra("user_password", password)
-//                }
-//                (context as? Activity)?.setResult(Activity.RESULT_OK, intent)
-//                (context as? Activity)?.finish()
                 SharedPreferencesManager.logout()
 
                 val intent = Intent(context, SignInActivity::class.java).apply {

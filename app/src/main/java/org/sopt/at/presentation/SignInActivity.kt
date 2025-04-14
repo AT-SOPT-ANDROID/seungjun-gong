@@ -50,12 +50,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import org.sopt.at.R
-import org.sopt.at.components.BasicTextField
 import org.sopt.at.components.BasicTopBar
 import org.sopt.at.components.PasswordTextField
-import org.sopt.at.data.SharedPreferencesManager
+import org.sopt.at.components.TvingTextField
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.basicColors
+import org.sopt.at.utils.SharedPreferencesManager
 
 class SignInActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +65,10 @@ class SignInActivity : ComponentActivity() {
         SharedPreferencesManager.init(context = this)
         setContent {
             if (intent.getBooleanExtra("signup_success", false)) {
-                Toast.makeText(this, "회원가입 성공!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    stringResource(R.string.success_signin_message), Toast.LENGTH_SHORT
+                ).show()
             }
 
             ATSOPTANDROIDTheme {
@@ -105,17 +108,6 @@ fun SignInScreen(
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
-//    var savedId by remember { mutableStateOf("") }
-//    var savedPw by remember { mutableStateOf("") }
-
-//    val launcher =
-//        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-//            if (result.resultCode == Activity.RESULT_OK) {
-//                savedId = result.data?.getStringExtra("user_id") ?: ""
-//                savedPw = result.data?.getStringExtra("user_password") ?: ""
-//            }
-//        }
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -132,7 +124,7 @@ fun SignInScreen(
             fontWeight = FontWeight.ExtraBold,
         )
         Spacer(modifier = Modifier.height(30.dp))
-        BasicTextField(
+        TvingTextField(
             value = inputId,
             onValueChange = { inputId = it },
             hint = stringResource(R.string.tf_id)
@@ -147,12 +139,6 @@ fun SignInScreen(
             inputId, inputPassword,
             onClick = {
                 if (SharedPreferencesManager.login(id = inputId, password = inputPassword)) {
-//                    val intent = Intent(context, MyActivity::class.java).apply {
-//                        putExtra("user_id", inputId)
-//                        putExtra("user_password", inputPassword)
-//                    }
-//                    inputId = ""
-//                    inputPassword = ""
                     val intent = Intent(context, MyActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     }

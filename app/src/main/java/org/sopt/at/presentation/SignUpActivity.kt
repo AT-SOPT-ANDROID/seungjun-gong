@@ -1,6 +1,5 @@
 package org.sopt.at.presentation
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -36,13 +35,15 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
-import org.sopt.at.components.BasicTextField
 import org.sopt.at.components.BasicTopBar
 import org.sopt.at.components.PasswordTextField
 import org.sopt.at.components.SignUpErrorDialog
-import org.sopt.at.data.SharedPreferencesManager
+import org.sopt.at.components.TvingTextField
+import org.sopt.at.utils.SharedPreferencesManager
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.basicColors
+import org.sopt.at.utils.RegexUtils
+import org.sopt.at.utils.RegexUtils.isValidPassword
 
 class SignUpActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,12 +75,6 @@ fun SignUpScreen() {
 
         2 -> {
             SignUpPassword { password ->
-//                val intent = Intent().apply {
-//                    putExtra("user_id", id)
-//                    putExtra("user_password", password)
-//                }
-//                (context as? Activity)?.setResult(Activity.RESULT_OK, intent)
-//                (context as? Activity)?.finish()
                 SharedPreferencesManager.registerUser(id, password)
                 val intent = Intent(context, SignInActivity::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -97,8 +92,6 @@ fun SignUpID(
 ) {
     var inputId by remember { mutableStateOf("") }
     var showDialog by remember { mutableStateOf(false) }
-
-    val isValidId = Regex("^[a-z0-9]{6,12}$").matches(inputId)
 
     Column(
         modifier = Modifier
@@ -118,7 +111,7 @@ fun SignUpID(
             fontWeight = FontWeight.SemiBold,
         )
         Spacer(modifier = Modifier.padding(15.dp))
-        BasicTextField(
+        TvingTextField(
             value = inputId,
             onValueChange = { inputId = it },
             hint = stringResource(R.string.tf_id),
@@ -132,7 +125,7 @@ fun SignUpID(
         Spacer(modifier = Modifier.weight(1f))
         SignUpButton(
             onClick = {
-                if (!isValidId) {
+                if (!RegexUtils.isValidId(inputId)) {
                     showDialog = true
                 } else {
                     nextStep(inputId)
@@ -155,11 +148,6 @@ fun SignUpID(
 fun SignUpPassword(nextStep: (String) -> Unit) {
     var inputPassword by remember { mutableStateOf("") }
     var showDialog by remember { mutableStateOf(false) }
-
-    val isValidPassword = Regex(
-        "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*])" +
-                "[a-zA-Z0-9~!@#$%^&*]{8,15}$"
-    ).matches(inputPassword)
 
     Column(
         modifier = Modifier
@@ -192,7 +180,7 @@ fun SignUpPassword(nextStep: (String) -> Unit) {
         Spacer(modifier = Modifier.weight(1f))
         SignUpButton(
             onClick = {
-                if (!isValidPassword) {
+                if (!RegexUtils.isValidPassword(inputPassword)) {
                     showDialog = true
                 } else {
                     nextStep(inputPassword)

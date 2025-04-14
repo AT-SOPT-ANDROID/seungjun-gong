@@ -16,14 +16,14 @@ import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.basicColors
 
 @Composable
-fun BasicTextField(
+fun TvingTextField(
     value: String,
     onValueChange: (String) -> Unit,
     hint: String,
     trailingIcon: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    ){
+) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
@@ -33,7 +33,7 @@ fun BasicTextField(
                 color = basicColors.gray600
             )
         },
-        modifier= Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedContainerColor = basicColors.gray900,
             focusedContainerColor = basicColors.gray900,
@@ -42,7 +42,7 @@ fun BasicTextField(
             cursorColor = Color.White,
             focusedTextColor = Color.White,
             unfocusedTextColor = Color.White,
-            ),
+        ),
         shape = RoundedCornerShape(4.dp),
         singleLine = true,
         trailingIcon = trailingIcon,
@@ -55,10 +55,10 @@ fun BasicTextField(
 @Composable
 private fun Preview() {
     ATSOPTANDROIDTheme {
-        BasicTextField(
+        TvingTextField(
             value = "아이디",
             onValueChange = {},
             hint = "hinthint",
-            )
+        )
     }
 }

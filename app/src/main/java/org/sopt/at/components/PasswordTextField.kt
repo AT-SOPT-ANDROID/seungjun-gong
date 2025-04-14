@@ -36,7 +36,7 @@ fun PasswordTextField(
         }
     }
 
-    BasicTextField(
+    TvingTextField(
         value = value,
         onValueChange = onValueChange,
         hint = stringResource(R.string.tf_password),

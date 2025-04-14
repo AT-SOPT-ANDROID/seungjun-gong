@@ -1,4 +1,4 @@
-package org.sopt.at.data
+package org.sopt.at.utils
 
 import android.content.Context
 import android.content.SharedPreferences
