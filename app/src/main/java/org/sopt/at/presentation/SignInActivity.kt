@@ -62,7 +62,6 @@ class SignInActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        SharedPreferencesManager.init(context = this)
         setContent {
             if (intent.getBooleanExtra("signup_success", false)) {
                 Toast.makeText(
@@ -72,13 +71,6 @@ class SignInActivity : ComponentActivity() {
             }
 
             ATSOPTANDROIDTheme {
-                if (SharedPreferencesManager.isLoggedIn()) {
-                    val intent = Intent(this, MyActivity::class.java).apply {
-                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    }
-                    this.startActivity(intent)
-                }
-
                 val snackbarHostState = remember { SnackbarHostState() }
 
                 Scaffold(
@@ -139,7 +131,7 @@ fun SignInScreen(
             inputId, inputPassword,
             onClick = {
                 if (SharedPreferencesManager.login(id = inputId, password = inputPassword)) {
-                    val intent = Intent(context, MyActivity::class.java).apply {
+                    val intent = Intent(context, MainActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     }
                     context.startActivity(intent)
@@ -169,7 +161,6 @@ fun SignInScreen(
                 stringResource(R.string.btn_sign_up),
                 onClick = {
                     val intent = Intent(context, SignUpActivity::class.java)
-//                    launcher.launch(intent)
                     context.startActivity(intent)
                 })
         }

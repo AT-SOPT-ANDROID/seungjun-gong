@@ -12,32 +12,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ATSOPTANDROID"
         tools:targetApi="31">
-
         <activity
-            android:name=".presentation.SignInActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true"
-            android:label="@string/title_activity_sign_in"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/Theme.ATSOPTANDROID">
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.ATSOPTANDROID" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".presentation.SignInActivity"
+            android:exported="false"
+            android:label="@string/title_activity_sign_in"
+            android:theme="@style/Theme.ATSOPTANDROID" />
         <activity
             android:name=".presentation.SignUpActivity"
             android:exported="false"
             android:label="@string/title_activity_sign_up"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/Theme.ATSOPTANDROID" />
-
+            android:theme="@style/Theme.ATSOPTANDROID"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.MyActivity"
             android:exported="false"
             android:label="@string/title_activity_my"
-            android:theme="@style/Theme.ATSOPTANDROID"/>
+            android:theme="@style/Theme.ATSOPTANDROID" />
     </application>
 
 </manifest>

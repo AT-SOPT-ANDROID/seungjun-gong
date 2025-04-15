@@ -53,7 +53,6 @@ class SignUpActivity : ComponentActivity() {
         setContent {
             ATSOPTANDROIDTheme {
                 SignUpScreen()
-                Scaffold {  }
             }
         }
     }

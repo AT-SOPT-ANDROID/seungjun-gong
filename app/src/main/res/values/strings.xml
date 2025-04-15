@@ -36,5 +36,6 @@
     <string name="btn_password_visibility">password visibility button</string>
     <string name="btn_logout">로그아웃</string>
     <string name="success_signin_message">회원가입 성공!</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>
