@@ -1,4 +1,4 @@
-package org.sopt.at.components
+package org.sopt.at.presentation.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

@@ -1,5 +1,6 @@
-package org.sopt.at.presentation
+package org.sopt.at.presentation.main
 
+import android.R.attr.name
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,15 +8,19 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import org.sopt.at.R
+import org.sopt.at.presentation.login.SignInActivity
+import org.sopt.at.presentation.main.navigation.MainNavigation
+import org.sopt.at.presentation.main.navigation.MainNavigationGraph
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.utils.SharedPreferencesManager
 
@@ -33,14 +38,23 @@ class MainActivity : ComponentActivity() {
                 this.startActivity(intent)
             }
 
+            val navController = rememberNavController()
+
             ATSOPTANDROIDTheme {
-                Column(
+
+                Scaffold(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(color = Color.White)
-                ) {
-                    Text(
-                        text = "hihi"
+                        .background(Color.Black),
+                    bottomBar = {
+                        MainNavigation(
+                            navController = navController,
+                        )
+                    }
+                ) { innerPadding ->
+                    MainNavigationGraph(
+                        navController = navController,
+                        paddingValues = innerPadding,
                     )
                 }
             }
@@ -48,23 +62,16 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun MainScreen() {
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun MainActivityPreview() {
     ATSOPTANDROIDTheme {
-        Image(
-            modifier = Modifier.fillMaxSize(),
-            painter = painterResource(id = R.drawable.img_home_poster1),
-            contentDescription = "Logo"
-        )
+
 
     }
 }

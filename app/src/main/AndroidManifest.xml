@@ -13,7 +13,7 @@
         android:theme="@style/Theme.ATSOPTANDROID"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".presentation.main.MainActivity"
             android:exported="true"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.ATSOPTANDROID" >
@@ -24,12 +24,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.SignInActivity"
+            android:name=".presentation.login.SignInActivity"
             android:exported="false"
             android:label="@string/title_activity_sign_in"
             android:theme="@style/Theme.ATSOPTANDROID" />
         <activity
-            android:name=".presentation.SignUpActivity"
+            android:name=".presentation.login.SignUpActivity"
             android:exported="false"
             android:label="@string/title_activity_sign_up"
             android:theme="@style/Theme.ATSOPTANDROID"

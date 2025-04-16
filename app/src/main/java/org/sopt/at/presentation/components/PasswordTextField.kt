@@ -1,4 +1,4 @@
-package org.sopt.at.components
+package org.sopt.at.presentation.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions

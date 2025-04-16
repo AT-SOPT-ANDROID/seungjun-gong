@@ -1,4 +1,4 @@
-package org.sopt.at.presentation
+package org.sopt.at.presentation.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -36,10 +35,10 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
-import org.sopt.at.components.BasicTopBar
-import org.sopt.at.components.PasswordTextField
-import org.sopt.at.components.SignUpErrorDialog
-import org.sopt.at.components.TvingTextField
+import org.sopt.at.presentation.components.BasicTopBar
+import org.sopt.at.presentation.components.PasswordTextField
+import org.sopt.at.presentation.components.SignUpErrorDialog
+import org.sopt.at.presentation.components.TvingTextField
 import org.sopt.at.utils.SharedPreferencesManager
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.basicColors
@@ -181,7 +180,7 @@ fun SignUpPassword(nextStep: (String) -> Unit) {
         Spacer(modifier = Modifier.weight(1f))
         SignUpButton(
             onClick = {
-                if (!RegexUtils.isValidPassword(inputPassword)) {
+                if (!isValidPassword(inputPassword)) {
                     showDialog = true
                 } else {
                     nextStep(inputPassword)

@@ -1,4 +1,4 @@
-package org.sopt.at.presentation
+package org.sopt.at.presentation.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -50,9 +50,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import org.sopt.at.R
-import org.sopt.at.components.BasicTopBar
-import org.sopt.at.components.PasswordTextField
-import org.sopt.at.components.TvingTextField
+import org.sopt.at.presentation.components.BasicTopBar
+import org.sopt.at.presentation.components.PasswordTextField
+import org.sopt.at.presentation.components.TvingTextField
+import org.sopt.at.presentation.main.MainActivity
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.basicColors
 import org.sopt.at.utils.SharedPreferencesManager

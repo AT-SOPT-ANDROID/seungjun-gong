@@ -23,6 +23,8 @@ data class BasicColors(
     val gray800: Color = Color(0xFF424242),
     val gray900: Color = Color(0xFF212121),
 
+    val inactiveGray: Color = Color(0xFF999999),
+
     val redA400: Color = Color(0xFFFF1744),
 )
 
