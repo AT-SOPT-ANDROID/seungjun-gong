@@ -6,7 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import org.sopt.at.presentation.main.screen.HistoryScreen
-import org.sopt.at.presentation.main.screen.HomeScreen
+import org.sopt.at.presentation.main.screen.home.HomeScreen
 import org.sopt.at.presentation.main.screen.LiveScreen
 import org.sopt.at.presentation.main.screen.SearchScreen
 import org.sopt.at.presentation.main.screen.ShortsScreen

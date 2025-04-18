@@ -52,5 +52,7 @@
     <string name="btn_logout">로그아웃</string>
     <string name="success_signin_message">회원가입 성공!</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="tving_logo">TVING Logo</string>
+    <string name="my_profile_button">My profile button</string>
 
 </resources>
