@@ -1,14 +1,11 @@
-package org.sopt.at.presentation
+package org.sopt.at.presentation.main.screen
 
 import android.content.Intent
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -29,38 +26,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
 import org.sopt.at.presentation.login.SignInActivity
-import org.sopt.at.utils.SharedPreferencesManager
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.basicColors
-
-class MyActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
-
-        val userId = SharedPreferencesManager.getUserId() ?: ""
-        val userPassword = SharedPreferencesManager.getUserPw() ?: ""
-
-        setContent {
-            ATSOPTANDROIDTheme {
-                MyScreen(userId, userPassword)
-            }
-        }
-    }
-}
+import org.sopt.at.utils.SharedPreferencesManager
 
 @Composable
 fun MyScreen(
-    id: String,
-    password: String,
+    paddingValues: PaddingValues,
+    modifier: Modifier = Modifier,
+    id: String = SharedPreferencesManager.getUserId() ?: "",
+    password: String = SharedPreferencesManager.getUserPw() ?: "",
 ) {
     val context = LocalContext.current
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color.Black)
+            .padding(paddingValues)
             .padding(horizontal = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly,
@@ -76,7 +59,8 @@ fun MyScreen(
                 SharedPreferencesManager.logout()
 
                 val intent = Intent(context, SignInActivity::class.java).apply {
-                    flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    flags =
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 }
                 context.startActivity(intent)
             },
@@ -107,6 +91,6 @@ fun MyScreen(
 @Composable
 fun MyScreenPreview() {
     ATSOPTANDROIDTheme {
-        MyScreen("아이디", "비밀번호")
+        MyScreen(PaddingValues(0.dp), id = "아이디", password = "비밀번호")
     }
 }

@@ -36,6 +36,7 @@ import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 @Composable
 fun HomeScreen(
     paddingValues: PaddingValues,
+    navigateToMyScreen: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(),
     defaultHorizontalPadding: Dp = 20.dp,
@@ -61,7 +62,7 @@ fun HomeScreen(
             Column {
                 Spacer(Modifier.height(20.dp))
                 HomeTopBar(
-                    navigateToMyScreen = {},
+                    navigateToMyScreen = navigateToMyScreen,
                     modifier = Modifier
                         .padding(horizontal = defaultHorizontalPadding),
                 )
@@ -136,7 +137,7 @@ fun TapBarCategories(
 @Composable
 private fun Preview() {
     ATSOPTANDROIDTheme {
-        HomeScreen(paddingValues = PaddingValues())
+        HomeScreen(paddingValues = PaddingValues(), {})
     }
 
 }

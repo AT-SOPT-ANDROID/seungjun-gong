@@ -18,3 +18,6 @@ data object Search : MainNavRoute
 
 @Serializable
 data object History : MainNavRoute
+
+@Serializable
+data object My : MainNavRoute
