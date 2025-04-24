@@ -54,8 +54,7 @@ import org.sopt.at.presentation.components.BasicTopBar
 import org.sopt.at.presentation.components.PasswordTextField
 import org.sopt.at.presentation.components.TvingTextField
 import org.sopt.at.presentation.main.MainActivity
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.basicColors
+import org.sopt.at.ui.theme.TvingTheme
 import org.sopt.at.utils.SharedPreferencesManager
 
 class SignInActivity : ComponentActivity() {
@@ -71,7 +70,7 @@ class SignInActivity : ComponentActivity() {
                 ).show()
             }
 
-            ATSOPTANDROIDTheme {
+            TvingTheme {
                 val snackbarHostState = remember { SnackbarHostState() }
 
                 Scaffold(
@@ -175,24 +174,24 @@ private fun PolicyText() {
     Text(
         modifier = Modifier.fillMaxWidth(),
         text = buildAnnotatedString {
-            append("이 사이트는 Google reCAPTCHA로 보호되며,\n")
+            append(stringResource(R.string.sign_in_policy_description1))
 
             withStyle(style = SpanStyle(textDecoration = TextDecoration.Underline)) {
-                append("Google 개인정보 처리방침")
+                append(stringResource(R.string.sign_in_policy_description2))
             }
 
-            append("과 ")
+            append(stringResource(R.string.sign_in_policy_description3))
 
             withStyle(style = SpanStyle(textDecoration = TextDecoration.Underline)) {
-                append("서비스 약관")
+                append(stringResource(R.string.sign_in_policy_description4))
             }
 
-            append("이 적용됩니다.")
+            append(stringResource(R.string.sign_in_policy_description5))
         },
         fontSize = 10.sp,
         lineHeight = 14.sp,
         textAlign = TextAlign.Center,
-        color = basicColors.gray700,
+        color = TvingTheme.colors.gray700,
     )
 }
 
@@ -214,8 +213,8 @@ private fun SignInButton(
             .fillMaxWidth()
             .height(height),
         colors = ButtonDefaults.buttonColors(
-            containerColor = basicColors.redA400,
-            disabledContainerColor = basicColors.gray800,
+            containerColor = TvingTheme.colors.redA400,
+            disabledContainerColor = TvingTheme.colors.gray800,
         ),
         shape = RoundedCornerShape(rounded)
     ) {
@@ -224,7 +223,7 @@ private fun SignInButton(
             color = if (isLoginFormFilled) {
                 Color.White
             } else {
-                basicColors.gray500
+                TvingTheme.colors.gray500
             },
             fontSize = fontSize,
             fontWeight = FontWeight.SemiBold
@@ -236,7 +235,7 @@ private fun SignInButton(
 fun AuthText(
     text: String,
     fontSize: TextUnit = 14.sp,
-    color: Color = basicColors.gray500,
+    color: Color = TvingTheme.colors.gray500,
     onClick: (() -> Unit)? = null,
 ) {
     Text(
@@ -253,7 +252,7 @@ fun AuthText(
 
 @Composable
 fun VerticalDividerWithSpacing(
-    color: Color = basicColors.gray800,
+    color: Color = TvingTheme.colors.gray800,
     height: Dp = 14.dp,
     horizontalPadding: Dp = 10.dp,
 ) {
@@ -268,7 +267,7 @@ fun VerticalDividerWithSpacing(
 @Preview(showBackground = true)
 @Composable
 fun SignInScreenPreview() {
-    ATSOPTANDROIDTheme {
+    TvingTheme {
         SignInScreen()
     }
 }

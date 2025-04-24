@@ -21,16 +21,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import org.sopt.at.R
 import org.sopt.at.presentation.main.screen.home.components.CustomBannerViewPager
 import org.sopt.at.presentation.main.screen.home.components.CustomThumbnails
 import org.sopt.at.presentation.main.screen.home.components.HomeTopBar
 import org.sopt.at.presentation.main.screen.home.data.HomeViewModel
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
+import org.sopt.at.ui.theme.TvingTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -87,9 +89,9 @@ fun HomeScreen(
         item {
             CustomThumbnails(
                 thumbnailItems = todayItems,
-                headerText = "오늘의 티빙 TOP 20",
+                headerText = stringResource(R.string.home_now_tving_top_20),
                 showRanking = true,
-                thumbnailDescription = "Today Top",
+                thumbnailDescription = stringResource(R.string.home_now_tving_top_20),
                 defaultHorizontalPadding = defaultHorizontalPadding,
             )
             Spacer(modifier = Modifier.height(10.dp))
@@ -98,8 +100,8 @@ fun HomeScreen(
         item {
             CustomThumbnails(
                 thumbnailItems = nowContentsItems,
-                headerText = "지금 방영 중인 콘텐츠",
-                thumbnailDescription = "Now Content",
+                headerText = stringResource(R.string.home_now_contents),
+                thumbnailDescription = stringResource(R.string.home_now_contents),
                 defaultHorizontalPadding = defaultHorizontalPadding,
             )
             Spacer(modifier = Modifier.height(30.dp))
@@ -113,7 +115,12 @@ fun TapBarCategories(
     modifier: Modifier = Modifier,
 ) {
     val categories = listOf(
-        "드라마", "예능", "영화", "스포츠", "애니", "뉴스"
+        stringResource(R.string.home_tapbar_item1),
+        stringResource(R.string.home_tapbar_item2),
+        stringResource(R.string.home_tapbar_item3),
+        stringResource(R.string.home_tapbar_item4),
+        stringResource(R.string.home_tapbar_item5),
+        stringResource(R.string.home_tapbar_item6),
     )
 
     Row(
@@ -136,7 +143,7 @@ fun TapBarCategories(
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-    ATSOPTANDROIDTheme {
+    TvingTheme {
         HomeScreen(paddingValues = PaddingValues(), {})
     }
 

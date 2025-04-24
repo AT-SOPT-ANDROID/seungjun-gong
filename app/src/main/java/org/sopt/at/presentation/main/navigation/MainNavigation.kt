@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import org.sopt.at.ui.theme.basicColors
+import org.sopt.at.ui.theme.TvingTheme
 import org.sopt.at.utils.NoRippleInteractionSource
 
 @Composable
@@ -70,7 +70,7 @@ fun MainNavigation(
                 label = {
                     Text(
                         text = stringResource(id = item.labelId),
-                        color = if (selected) Color.White else basicColors.inactiveGray,
+                        color = if (selected) Color.White else TvingTheme.colors.inactiveGray,
                         fontWeight = FontWeight.W500,
                         fontSize = 10.sp,
                     )

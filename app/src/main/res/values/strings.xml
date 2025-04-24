@@ -6,6 +6,11 @@
     <string name="sign_in_title">TVING ID 로그인</string>
     <string name="signin_sucess_message">로그인에 성공하였습니다.</string>
     <string name="signin_fail_message">입력하신 회원정보를 찾을 수 없습니다.</string>
+    <string name="sign_in_policy_description1">이 사이트는 Google reCAPTCHA로 보호되며,\n</string>
+    <string name="sign_in_policy_description2">Google 개인정보 처리방침"</string>
+    <string name="sign_in_policy_description3">과 </string>
+    <string name="sign_in_policy_description4">서비스 약관</string>
+    <string name="sign_in_policy_description5">이 적용됩니다.</string>
 
     <!--SignUp-->
     <string name="title_activity_sign_up">SignUpActivity</string>
@@ -18,9 +23,19 @@
     <string name="error_invalid_password">비밀번호 형식이 올바르지 않습니다.
         영문, 숫자, 특수문자(~!@#$%^&amp;*)조합 8~15자리로 입력해주세요.
     </string>
+    <string name="sign_up_error_check">확인</string>
 
     <!--HOME-->
     <string name="home_title">HOME</string>
+    <string name="home_now_tving_top_20">오늘의 티빙 TOP 20</string>
+    <string name="home_now_contents">지금 방영 중인 콘텐츠</string>
+
+    <string name="home_tapbar_item1">드라마</string>
+    <string name="home_tapbar_item2">예능</string>
+    <string name="home_tapbar_item3">영화</string>
+    <string name="home_tapbar_item4">스포츠</string>
+    <string name="home_tapbar_item5">애니</string>
+    <string name="home_tapbar_item6">뉴스</string>
 
     <!--Shorts-->
     <string name="shorts_title">Shorts</string>

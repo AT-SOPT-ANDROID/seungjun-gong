@@ -12,8 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.basicColors
+import org.sopt.at.ui.theme.TvingTheme
 
 @Composable
 fun TvingTextField(
@@ -30,15 +29,15 @@ fun TvingTextField(
         placeholder = {
             Text(
                 text = hint,
-                color = basicColors.gray600
+                color = TvingTheme.colors.gray600
             )
         },
         modifier = Modifier.fillMaxWidth(),
         colors = OutlinedTextFieldDefaults.colors(
-            unfocusedContainerColor = basicColors.gray900,
-            focusedContainerColor = basicColors.gray900,
+            unfocusedContainerColor = TvingTheme.colors.gray900,
+            focusedContainerColor = TvingTheme.colors.gray900,
             unfocusedBorderColor = Color.Transparent,
-            focusedBorderColor = basicColors.gray600,
+            focusedBorderColor = TvingTheme.colors.gray600,
             cursorColor = Color.White,
             focusedTextColor = Color.White,
             unfocusedTextColor = Color.White,
@@ -54,7 +53,7 @@ fun TvingTextField(
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-    ATSOPTANDROIDTheme {
+    TvingTheme {
         TvingTextField(
             value = "아이디",
             onValueChange = {},

@@ -39,18 +39,17 @@ import org.sopt.at.presentation.components.BasicTopBar
 import org.sopt.at.presentation.components.PasswordTextField
 import org.sopt.at.presentation.components.SignUpErrorDialog
 import org.sopt.at.presentation.components.TvingTextField
-import org.sopt.at.utils.SharedPreferencesManager
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.basicColors
+import org.sopt.at.ui.theme.TvingTheme
 import org.sopt.at.utils.RegexUtils
 import org.sopt.at.utils.RegexUtils.isValidPassword
+import org.sopt.at.utils.SharedPreferencesManager
 
 class SignUpActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            ATSOPTANDROIDTheme {
+            TvingTheme {
                 SignUpScreen()
             }
         }
@@ -105,7 +104,7 @@ fun SignUpID(
         Text(
             text = stringResource(R.string.sign_up_id_title),
             fontSize = 20.sp,
-            color = basicColors.gray400,
+            color = TvingTheme.colors.gray400,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.SemiBold,
@@ -120,7 +119,7 @@ fun SignUpID(
         Text(
             text = stringResource(R.string.sign_up_id_rule),
             fontSize = 12.sp,
-            color = basicColors.gray600,
+            color = TvingTheme.colors.gray600,
         )
         Spacer(modifier = Modifier.weight(1f))
         SignUpButton(
@@ -161,7 +160,7 @@ fun SignUpPassword(nextStep: (String) -> Unit) {
         Text(
             text = stringResource(R.string.sign_up_password_title),
             fontSize = 20.sp,
-            color = basicColors.gray400,
+            color = TvingTheme.colors.gray400,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.SemiBold,
@@ -175,7 +174,7 @@ fun SignUpPassword(nextStep: (String) -> Unit) {
         Text(
             text = stringResource(R.string.sign_up_password_rule),
             fontSize = 12.sp,
-            color = basicColors.gray600,
+            color = TvingTheme.colors.gray600,
         )
         Spacer(modifier = Modifier.weight(1f))
         SignUpButton(
@@ -220,7 +219,7 @@ private fun SignUpButton(
                 if (isFilled) {
                     Color.Transparent
                 } else {
-                    basicColors.gray600
+                    TvingTheme.colors.gray600
                 }
         ),
         colors = ButtonDefaults.buttonColors(
@@ -234,7 +233,7 @@ private fun SignUpButton(
             color = if (isFilled) {
                 Color.Black
             } else {
-                basicColors.gray500
+                TvingTheme.colors.gray500
             },
             fontSize = fontSize,
             fontWeight = FontWeight.SemiBold,
@@ -245,7 +244,7 @@ private fun SignUpButton(
 @Preview(showBackground = true)
 @Composable
 fun SignUpScreenPreview() {
-    ATSOPTANDROIDTheme {
+    TvingTheme {
         SignUpScreen()
     }
 }

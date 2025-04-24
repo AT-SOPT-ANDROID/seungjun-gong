@@ -26,8 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
 import org.sopt.at.presentation.login.SignInActivity
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.basicColors
+import org.sopt.at.ui.theme.TvingTheme
 import org.sopt.at.utils.SharedPreferencesManager
 
 @Composable
@@ -69,7 +68,7 @@ fun MyScreen(
                 .height(50.dp),
             border = BorderStroke(
                 width = 1.dp,
-                color = basicColors.gray600
+                color = TvingTheme.colors.gray600
             ),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Black,
@@ -78,7 +77,7 @@ fun MyScreen(
         ) {
             Text(
                 text = stringResource(R.string.btn_logout),
-                color = basicColors.gray500,
+                color = TvingTheme.colors.gray500,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
             )
@@ -90,7 +89,7 @@ fun MyScreen(
 @Preview(showBackground = true)
 @Composable
 fun MyScreenPreview() {
-    ATSOPTANDROIDTheme {
+    TvingTheme {
         MyScreen(PaddingValues(0.dp), id = "아이디", password = "비밀번호")
     }
 }

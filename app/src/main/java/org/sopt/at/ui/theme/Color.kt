@@ -1,6 +1,7 @@
 package org.sopt.at.ui.theme
 
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
@@ -12,7 +13,7 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 @Immutable
-data class BasicColors(
+data class TvingColors(
     val gray100: Color = Color(0xFFF5F5F5),
     val gray200: Color = Color(0xFFEEEEEE),
     val gray300: Color = Color(0xFFE0E0E0),
@@ -28,4 +29,6 @@ data class BasicColors(
     val redA400: Color = Color(0xFFFF1744),
 )
 
-val basicColors = BasicColors()
+val baiscTvingColors = TvingColors()
+
+val LocalTvingColorsProvider = staticCompositionLocalOf { baiscTvingColors }

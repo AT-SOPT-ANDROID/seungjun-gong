@@ -21,8 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import org.sopt.at.R
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.basicColors
+import org.sopt.at.ui.theme.TvingTheme
 
 @Composable
 fun SignUpErrorDialog(
@@ -34,7 +33,7 @@ fun SignUpErrorDialog(
     ) {
         Surface(
             shape = RoundedCornerShape(4.dp),
-            color = basicColors.gray900,
+            color = TvingTheme.colors.gray900,
             modifier = Modifier
                 .width(300.dp)
                 .wrapContentHeight()
@@ -56,7 +55,7 @@ fun SignUpErrorDialog(
                 HorizontalDivider(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    color = basicColors.gray800,
+                    color = TvingTheme.colors.gray800,
                 )
                 Text(
                     modifier = Modifier
@@ -66,11 +65,11 @@ fun SignUpErrorDialog(
                         .clickable(
                             onClick = onDismissRequest
                         ),
-                    text = "확인",
+                    text = stringResource(R.string.sign_up_error_check),
                     fontSize = 12.sp,
-                    color = basicColors.gray500,
+                    color = TvingTheme.colors.gray500,
                     textAlign = TextAlign.Center,
-                    )
+                )
             }
         }
     }
@@ -80,7 +79,7 @@ fun SignUpErrorDialog(
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-    ATSOPTANDROIDTheme {
+    TvingTheme {
         SignUpErrorDialog(
             onDismissRequest = {},
             text = stringResource(R.string.error_invalid_id),

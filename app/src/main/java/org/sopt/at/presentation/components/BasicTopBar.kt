@@ -10,21 +10,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.sopt.at.R
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.basicColors
+import org.sopt.at.ui.theme.TvingTheme
 
 
 @Composable
 fun BasicTopBar(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier.fillMaxWidth()
-    ){
-        Icon (
+    ) {
+        Icon(
             imageVector = ImageVector.vectorResource(R.drawable.ic_back_arrow),
             contentDescription = stringResource(R.string.btn_basic_topbar_back),
-            tint = basicColors.gray400,
+            tint = TvingTheme.colors.gray400,
         )
     }
 }
@@ -33,7 +32,7 @@ fun BasicTopBar(
 @Preview(showBackground = true)
 @Composable
 private fun BasicTopBarPreview() {
-    ATSOPTANDROIDTheme {
+    TvingTheme {
         BasicTopBar()
     }
 }
