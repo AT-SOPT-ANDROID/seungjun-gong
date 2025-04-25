@@ -1,5 +1,6 @@
 package org.sopt.at.presentation.main.screen.home
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -31,7 +32,9 @@ import org.sopt.at.R
 import org.sopt.at.presentation.main.screen.home.components.CustomBannerViewPager
 import org.sopt.at.presentation.main.screen.home.components.CustomThumbnails
 import org.sopt.at.presentation.main.screen.home.components.HomeTopBar
+import org.sopt.at.presentation.main.screen.home.components.TapBarCategories
 import org.sopt.at.presentation.main.screen.home.data.HomeViewModel
+import org.sopt.at.presentation.main.screen.home.data.TabBarCategory
 import org.sopt.at.ui.theme.TvingTheme
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -43,15 +46,22 @@ fun HomeScreen(
     viewModel: HomeViewModel = viewModel(),
     defaultHorizontalPadding: Dp = 20.dp,
 ) {
+
+    val selectedCategory by viewModel.selectedCategory.collectAsState()
     val bannerItems by viewModel.bannerItems.collectAsState()
     val todayItems by viewModel.todayItems.collectAsState()
     val nowContentsItems by viewModel.nowContentsItems.collectAsState()
 
     // data load
     LaunchedEffect(Unit) {
-        viewModel.loadBannerItems()
+        viewModel.loadSelectedBannerItems(TabBarCategory.HOME)
         viewModel.loadTodayItems()
         viewModel.loadNowContentsItems()
+    }
+
+    // 탭 활성화 상태, 백버튼 클릭시
+    BackHandler(enabled = selectedCategory != TabBarCategory.HOME) {
+        viewModel.loadSelectedBannerItems(TabBarCategory.HOME)
     }
 
     LazyColumn(
@@ -74,8 +84,8 @@ fun HomeScreen(
 
         stickyHeader {
             TapBarCategories(
-                modifier = Modifier
-                    .padding(bottom = 15.dp)
+                selectedCategory = selectedCategory,
+                onTabSelected = {viewModel.loadSelectedBannerItems(it)}
             )
         }
 
@@ -89,9 +99,9 @@ fun HomeScreen(
         item {
             CustomThumbnails(
                 thumbnailItems = todayItems,
-                headerText = stringResource(R.string.home_now_tving_top_20),
+                headerText = stringResource(selectedCategory.liveSectionTitleRes),
                 showRanking = true,
-                thumbnailDescription = stringResource(R.string.home_now_tving_top_20),
+                thumbnailDescription = stringResource(selectedCategory.liveSectionTitleRes),
                 defaultHorizontalPadding = defaultHorizontalPadding,
             )
             Spacer(modifier = Modifier.height(10.dp))
@@ -100,8 +110,8 @@ fun HomeScreen(
         item {
             CustomThumbnails(
                 thumbnailItems = nowContentsItems,
-                headerText = stringResource(R.string.home_now_contents),
-                thumbnailDescription = stringResource(R.string.home_now_contents),
+                headerText = stringResource(selectedCategory.recommendedSectionTitleRes),
+                thumbnailDescription = stringResource(selectedCategory.recommendedSectionTitleRes),
                 defaultHorizontalPadding = defaultHorizontalPadding,
             )
             Spacer(modifier = Modifier.height(30.dp))
@@ -110,35 +120,6 @@ fun HomeScreen(
     }
 }
 
-@Composable
-fun TapBarCategories(
-    modifier: Modifier = Modifier,
-) {
-    val categories = listOf(
-        stringResource(R.string.home_tapbar_item1),
-        stringResource(R.string.home_tapbar_item2),
-        stringResource(R.string.home_tapbar_item3),
-        stringResource(R.string.home_tapbar_item4),
-        stringResource(R.string.home_tapbar_item5),
-        stringResource(R.string.home_tapbar_item6),
-    )
-
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(Color.Black),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceEvenly,
-    ) {
-        categories.forEach { category ->
-            Text(
-                text = category,
-                color = Color.White,
-                fontSize = 14.sp,
-            )
-        }
-    }
-}
 
 @Preview(showBackground = true)
 @Composable

@@ -1,5 +1,7 @@
 package org.sopt.at.presentation.main.screen.home.data
 
+import android.R.attr.category
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,6 +12,9 @@ import org.sopt.at.R
 
 class HomeViewModel : ViewModel() {
 
+    private val _selectedCategory = MutableStateFlow(TabBarCategory.HOME)
+    val selectedCategory: StateFlow<TabBarCategory> = _selectedCategory.asStateFlow()
+
     private val _bannerItems = MutableStateFlow<List<Int>>(emptyList())
     val bannerItems: StateFlow<List<Int>> = _bannerItems.asStateFlow()
 
@@ -19,7 +24,7 @@ class HomeViewModel : ViewModel() {
     private val _nowContentsItems = MutableStateFlow<List<Int>>(emptyList())
     val nowContentsItems: StateFlow<List<Int>> = _nowContentsItems.asStateFlow()
 
-    private val items = listOf(
+    private val dummyItems = listOf(
         R.drawable.img_home_poster1,
         R.drawable.img_home_poster2,
         R.drawable.img_home_poster3,
@@ -33,21 +38,34 @@ class HomeViewModel : ViewModel() {
         R.drawable.img_home_poster11,
     )
 
-    fun loadBannerItems() {
+    private fun getBannerItems(category: TabBarCategory): List<Int> {
+        return when (category) {
+            TabBarCategory.HOME -> dummyItems
+            TabBarCategory.DRAMA -> listOf(R.drawable.img_home_drama_poster1)
+            TabBarCategory.VARIETY -> listOf(R.drawable.img_home_variety_poster1)
+            TabBarCategory.MOVIE -> listOf(R.drawable.img_home_movie_poster1)
+            TabBarCategory.SPORTS -> listOf(R.drawable.img_home_sports_poster1)
+            TabBarCategory.ANIME -> listOf(R.drawable.img_home_anime_poster1)
+            TabBarCategory.NEWS -> listOf(R.drawable.img_home_news_poster1)
+        }
+    }
+
+    fun loadSelectedBannerItems(category: TabBarCategory) {
         viewModelScope.launch {
-            _bannerItems.value = items
+            _selectedCategory.value = category
+            _bannerItems.value = getBannerItems(category)
         }
     }
 
     fun loadTodayItems() {
         viewModelScope.launch {
-            _todayItems.value = items
+            _todayItems.value = dummyItems
         }
     }
 
     fun loadNowContentsItems() {
         viewModelScope.launch {
-            _nowContentsItems.value = items
+            _nowContentsItems.value = dummyItems
         }
     }
 

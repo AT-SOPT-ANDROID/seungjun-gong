@@ -27,15 +27,34 @@
 
     <!--HOME-->
     <string name="home_title">HOME</string>
-    <string name="home_now_tving_top_20">오늘의 티빙 TOP 20</string>
+    <string name="home_today_tving_top_20">오늘의 티빙 TOP 20</string>
     <string name="home_now_contents">지금 방영 중인 콘텐츠</string>
 
-    <string name="home_tapbar_item1">드라마</string>
-    <string name="home_tapbar_item2">예능</string>
-    <string name="home_tapbar_item3">영화</string>
-    <string name="home_tapbar_item4">스포츠</string>
-    <string name="home_tapbar_item5">애니</string>
-    <string name="home_tapbar_item6">뉴스</string>
+    <!-- 탭 제목 -->
+    <string name="home_tab_title_drama">드라마</string>
+    <string name="home_tab_title_variety">예능</string>
+    <string name="home_tab_title_movie">영화</string>
+    <string name="home_tab_title_sports">스포츠</string>
+    <string name="home_tab_title_anime">애니</string>
+    <string name="home_tab_title_news">뉴스</string>
+
+    <!-- 실시간 인기 콘텐츠 제목 -->
+    <string name="home_section_title_live_drama">실시간 인기 드라마</string>
+    <string name="home_section_title_live_variety">실시간 인기 예능</string>
+    <string name="home_section_title_live_movie">실시간 인기 영화</string>
+    <string name="home_section_title_live_sports">실시간 인기 스포츠</string>
+    <string name="home_section_title_live_anime">실시간 인기 애니메이션</string>
+    <string name="home_section_title_live_news">실시간 인기 뉴스</string>
+
+    <!-- 추천 인기 콘텐츠 제목 -->
+    <string name="home_section_title_recommended_drama">추천 인기 드라마</string>
+    <string name="home_section_title_recommended_variety">추천 인기 예능</string>
+    <string name="home_section_title_recommended_movie">추천 인기 영화</string>
+    <string name="home_section_title_recommended_sports">추천 인기 스포츠</string>
+    <string name="home_section_title_recommended_anime">추천 인기 애니메이션</string>
+    <string name="home_section_title_recommended_news">추천 인기 뉴스</string>
+
+
 
     <!--Shorts-->
     <string name="shorts_title">Shorts</string>
