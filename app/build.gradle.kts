@@ -1,5 +1,3 @@
-import org.gradle.internal.impldep.org.jsoup.nodes.Entities.EscapeMode.extended
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
