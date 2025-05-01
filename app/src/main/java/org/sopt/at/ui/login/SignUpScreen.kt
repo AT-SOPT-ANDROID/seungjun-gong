@@ -1,10 +1,5 @@
-package org.sopt.at.presentation
+package org.sopt.at.ui.login
 
-import android.content.Intent
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -25,45 +20,30 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
-import org.sopt.at.components.BasicTopBar
-import org.sopt.at.components.PasswordTextField
-import org.sopt.at.components.SignUpErrorDialog
-import org.sopt.at.components.TvingTextField
-import org.sopt.at.utils.SharedPreferencesManager
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.basicColors
+import org.sopt.at.ui.login.components.BasicTopBar
+import org.sopt.at.ui.login.components.PasswordTextField
+import org.sopt.at.ui.login.components.SignUpErrorDialog
+import org.sopt.at.ui.login.components.TvingTextField
+import org.sopt.at.ui.theme.TvingTheme
 import org.sopt.at.utils.RegexUtils
 import org.sopt.at.utils.RegexUtils.isValidPassword
-
-class SignUpActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            ATSOPTANDROIDTheme {
-                SignUpScreen()
-            }
-        }
-    }
-}
+import org.sopt.at.utils.SharedPreferencesManager
 
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(
+    navigateToSignInScreen: () -> Unit,
+) {
 
     var step by remember { mutableIntStateOf(1) }
     var id by remember { mutableStateOf("") }
-
-    val context = LocalContext.current
 
     when (step) {
         1 -> {
@@ -76,11 +56,7 @@ fun SignUpScreen() {
         2 -> {
             SignUpPassword { password ->
                 SharedPreferencesManager.registerUser(id, password)
-                val intent = Intent(context, SignInActivity::class.java).apply {
-                    flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    putExtra("signup_success", true)
-                }
-                context.startActivity(intent)
+                navigateToSignInScreen()
             }
         }
     }
@@ -105,7 +81,7 @@ fun SignUpID(
         Text(
             text = stringResource(R.string.sign_up_id_title),
             fontSize = 20.sp,
-            color = basicColors.gray400,
+            color = TvingTheme.colors.gray400,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.SemiBold,
@@ -120,7 +96,7 @@ fun SignUpID(
         Text(
             text = stringResource(R.string.sign_up_id_rule),
             fontSize = 12.sp,
-            color = basicColors.gray600,
+            color = TvingTheme.colors.gray600,
         )
         Spacer(modifier = Modifier.weight(1f))
         SignUpButton(
@@ -161,7 +137,7 @@ fun SignUpPassword(nextStep: (String) -> Unit) {
         Text(
             text = stringResource(R.string.sign_up_password_title),
             fontSize = 20.sp,
-            color = basicColors.gray400,
+            color = TvingTheme.colors.gray400,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.SemiBold,
@@ -175,12 +151,12 @@ fun SignUpPassword(nextStep: (String) -> Unit) {
         Text(
             text = stringResource(R.string.sign_up_password_rule),
             fontSize = 12.sp,
-            color = basicColors.gray600,
+            color = TvingTheme.colors.gray600,
         )
         Spacer(modifier = Modifier.weight(1f))
         SignUpButton(
             onClick = {
-                if (!RegexUtils.isValidPassword(inputPassword)) {
+                if (!isValidPassword(inputPassword)) {
                     showDialog = true
                 } else {
                     nextStep(inputPassword)
@@ -220,7 +196,7 @@ private fun SignUpButton(
                 if (isFilled) {
                     Color.Transparent
                 } else {
-                    basicColors.gray600
+                    TvingTheme.colors.gray600
                 }
         ),
         colors = ButtonDefaults.buttonColors(
@@ -234,18 +210,10 @@ private fun SignUpButton(
             color = if (isFilled) {
                 Color.Black
             } else {
-                basicColors.gray500
+                TvingTheme.colors.gray500
             },
             fontSize = fontSize,
             fontWeight = FontWeight.SemiBold,
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun SignUpScreenPreview() {
-    ATSOPTANDROIDTheme {
-        SignUpScreen()
     }
 }

@@ -1,4 +1,4 @@
-package org.sopt.at.components
+package org.sopt.at.ui.login.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -18,8 +18,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.basicColors
+import org.sopt.at.ui.theme.TvingTheme
 
 @Composable
 fun PasswordTextField(
@@ -52,7 +51,7 @@ fun PasswordTextField(
                         id = passwordShowState(isShowPassword)
                     ),
                     contentDescription = stringResource(R.string.btn_password_visibility),
-                    tint = basicColors.gray600,
+                    tint = TvingTheme.colors.gray600,
                 )
             }
         },
@@ -65,7 +64,7 @@ fun PasswordTextField(
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-    ATSOPTANDROIDTheme {
+    TvingTheme {
         PasswordTextField(
             value = "비밀번호",
             onValueChange = {}

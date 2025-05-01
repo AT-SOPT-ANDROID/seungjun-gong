@@ -6,6 +6,11 @@
     <string name="sign_in_title">TVING ID 로그인</string>
     <string name="signin_sucess_message">로그인에 성공하였습니다.</string>
     <string name="signin_fail_message">입력하신 회원정보를 찾을 수 없습니다.</string>
+    <string name="sign_in_policy_description1">이 사이트는 Google reCAPTCHA로 보호되며,\n</string>
+    <string name="sign_in_policy_description2">Google 개인정보 처리방침"</string>
+    <string name="sign_in_policy_description3">과 </string>
+    <string name="sign_in_policy_description4">서비스 약관</string>
+    <string name="sign_in_policy_description5">이 적용됩니다.</string>
 
     <!--SignUp-->
     <string name="title_activity_sign_up">SignUpActivity</string>
@@ -18,6 +23,50 @@
     <string name="error_invalid_password">비밀번호 형식이 올바르지 않습니다.
         영문, 숫자, 특수문자(~!@#$%^&amp;*)조합 8~15자리로 입력해주세요.
     </string>
+    <string name="sign_up_error_check">확인</string>
+
+    <!--HOME-->
+    <string name="home_title">HOME</string>
+    <string name="home_today_tving_top_20">오늘의 티빙 TOP 20</string>
+    <string name="home_now_contents">지금 방영 중인 콘텐츠</string>
+
+    <!-- 탭 제목 -->
+    <string name="home_tab_title_drama">드라마</string>
+    <string name="home_tab_title_variety">예능</string>
+    <string name="home_tab_title_movie">영화</string>
+    <string name="home_tab_title_sports">스포츠</string>
+    <string name="home_tab_title_anime">애니</string>
+    <string name="home_tab_title_news">뉴스</string>
+
+    <!-- 실시간 인기 콘텐츠 제목 -->
+    <string name="home_section_title_live_drama">실시간 인기 드라마</string>
+    <string name="home_section_title_live_variety">실시간 인기 예능</string>
+    <string name="home_section_title_live_movie">실시간 인기 영화</string>
+    <string name="home_section_title_live_sports">실시간 인기 스포츠</string>
+    <string name="home_section_title_live_anime">실시간 인기 애니메이션</string>
+    <string name="home_section_title_live_news">실시간 인기 뉴스</string>
+
+    <!-- 추천 인기 콘텐츠 제목 -->
+    <string name="home_section_title_recommended_drama">추천 인기 드라마</string>
+    <string name="home_section_title_recommended_variety">추천 인기 예능</string>
+    <string name="home_section_title_recommended_movie">추천 인기 영화</string>
+    <string name="home_section_title_recommended_sports">추천 인기 스포츠</string>
+    <string name="home_section_title_recommended_anime">추천 인기 애니메이션</string>
+    <string name="home_section_title_recommended_news">추천 인기 뉴스</string>
+
+
+
+    <!--Shorts-->
+    <string name="shorts_title">Shorts</string>
+
+    <!--LIVE-->
+    <string name="live_title">LIVE</string>
+
+    <!--SEARCH-->
+    <string name="search_title">SEARCH</string>
+
+    <!--HISTORY-->
+    <string name="history_title">HISTORY</string>
 
     <!--MY-->
     <string name="title_activity_my">MyActivity</string>
@@ -35,6 +84,9 @@
     <string name="btn_basic_topbar_back">뒤로가기</string>
     <string name="btn_password_visibility">password visibility button</string>
     <string name="btn_logout">로그아웃</string>
-    <string name="success_signin_message">회원가입 성공!</string>
+    <string name="success_signup_message">회원가입 성공!</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tving_logo">TVING Logo</string>
+    <string name="my_profile_button">My profile button</string>
 
 </resources>

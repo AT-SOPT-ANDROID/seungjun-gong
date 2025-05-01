@@ -1,10 +1,6 @@
-package org.sopt.at.presentation
+package org.sopt.at.ui.my
 
 import android.content.Intent
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,36 +24,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
+import org.sopt.at.ui.MainActivity
+import org.sopt.at.ui.theme.TvingTheme
 import org.sopt.at.utils.SharedPreferencesManager
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.basicColors
-
-class MyActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
-
-        val userId = SharedPreferencesManager.getUserId() ?: ""
-        val userPassword = SharedPreferencesManager.getUserPw() ?: ""
-
-        setContent {
-            ATSOPTANDROIDTheme {
-                MyScreen(userId, userPassword)
-            }
-        }
-    }
-}
 
 @Composable
 fun MyScreen(
-    id: String,
-    password: String,
+    modifier: Modifier = Modifier,
+    id: String = SharedPreferencesManager.getUserId() ?: "",
 ) {
     val context = LocalContext.current
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color.Black)
             .padding(horizontal = 20.dp),
@@ -73,9 +52,8 @@ fun MyScreen(
         OutlinedButton(
             onClick = {
                 SharedPreferencesManager.logout()
-
-                val intent = Intent(context, SignInActivity::class.java).apply {
-                    flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                val intent = Intent(context, MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 }
                 context.startActivity(intent)
             },
@@ -84,7 +62,7 @@ fun MyScreen(
                 .height(50.dp),
             border = BorderStroke(
                 width = 1.dp,
-                color = basicColors.gray600
+                color = TvingTheme.colors.gray600
             ),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Black,
@@ -93,7 +71,7 @@ fun MyScreen(
         ) {
             Text(
                 text = stringResource(R.string.btn_logout),
-                color = basicColors.gray500,
+                color = TvingTheme.colors.gray500,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
             )
@@ -105,7 +83,7 @@ fun MyScreen(
 @Preview(showBackground = true)
 @Composable
 fun MyScreenPreview() {
-    ATSOPTANDROIDTheme {
-        MyScreen("아이디", "비밀번호")
+    TvingTheme {
+        MyScreen(id = "아이디")
     }
 }
