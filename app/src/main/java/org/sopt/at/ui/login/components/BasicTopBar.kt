@@ -27,12 +27,3 @@ fun BasicTopBar(
         )
     }
 }
-
-
-@Preview(showBackground = true)
-@Composable
-private fun BasicTopBarPreview() {
-    TvingTheme {
-        BasicTopBar()
-    }
-}

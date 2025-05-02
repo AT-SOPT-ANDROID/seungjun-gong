@@ -68,10 +68,11 @@ fun SignInScreen(
     var password by remember { mutableStateOf("") }
 
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
-    val savedStateHandle = currentBackStackEntry?.savedStateHandle
-    val signUpSuccess = savedStateHandle?.get<Boolean>("signUpSuccess") == true
 
-    LaunchedEffect(signUpSuccess) {
+    LaunchedEffect(currentBackStackEntry) {
+        val savedStateHandle = currentBackStackEntry?.savedStateHandle
+        val signUpSuccess = savedStateHandle?.get<Boolean>("signUpSuccess") == true
+
         if (signUpSuccess) {
             Toast.makeText(
                 context,
@@ -121,7 +122,6 @@ fun SignInScreen(
                         id = userId,
                         password = password
                     )
-
                     if (isSuccess) {
                         navigateToHomeScreen()
                     } else {

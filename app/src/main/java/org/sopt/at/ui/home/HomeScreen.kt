@@ -4,7 +4,6 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -18,7 +17,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -27,7 +25,6 @@ import org.sopt.at.ui.home.components.CustomThumbnails
 import org.sopt.at.ui.home.components.HomeTopBar
 import org.sopt.at.ui.home.components.TapBarCategories
 import org.sopt.at.ui.home.model.TabBarCategory
-import org.sopt.at.ui.theme.TvingTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -43,14 +40,14 @@ fun HomeScreen(
     val todayItems by viewModel.todayItems.collectAsState()
     val nowContentsItems by viewModel.nowContentsItems.collectAsState()
 
-    // data load
+    val pagerState = rememberPagerState(pageCount = { bannerItems.size })
+
     LaunchedEffect(Unit) {
         viewModel.loadSelectedBannerItems(TabBarCategory.HOME)
         viewModel.loadTodayItems()
         viewModel.loadNowContentsItems()
     }
 
-    // 탭 활성화 상태, 백버튼 클릭시
     BackHandler(enabled = selectedCategory != TabBarCategory.HOME) {
         viewModel.loadSelectedBannerItems(TabBarCategory.HOME)
     }
@@ -75,14 +72,14 @@ fun HomeScreen(
         stickyHeader {
             TapBarCategories(
                 selectedCategory = selectedCategory,
-                onTabSelected = { viewModel.loadSelectedBannerItems(it) }
+                onTabSelected = viewModel::loadSelectedBannerItems,
             )
         }
 
         item {
             CustomBannerViewPager(
                 items = bannerItems,
-                pagerState = rememberPagerState(pageCount = { bannerItems.size })
+                pagerState = pagerState
             )
         }
 
@@ -106,6 +103,5 @@ fun HomeScreen(
             )
             Spacer(modifier = Modifier.height(30.dp))
         }
-
     }
 }

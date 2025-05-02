@@ -1,6 +1,5 @@
 package org.sopt.at.ui.home.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,17 +13,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import org.sopt.at.ui.theme.TvingTheme
+import kotlinx.collections.immutable.ImmutableList
+import org.sopt.at.ui.common.StableImage
 
 
 @Composable
 fun CustomBannerViewPager(
     pagerState: PagerState,
-    items: List<Int>,
+    items: ImmutableList<Int>,
     modifier: Modifier = Modifier,
     contentPadding: Dp = 20.dp,
     pageSpacing: Dp = 10.dp,
@@ -43,23 +41,15 @@ fun CustomBannerViewPager(
         snapPosition = SnapPosition.Start,
     ) { page ->
 
-        Image(
+        StableImage(
+            drawableResId = items[page],
+            contentDescription = "배너 이미지 $page",
             modifier = Modifier
                 .fillMaxWidth()
                 .height(imageHeight)
                 .clip(RoundedCornerShape(rounded)),
-            painter = painterResource(id = items[page]),
             contentScale = ContentScale.FillBounds,
-            contentDescription = "배너 이미지 $page"
         )
+
     }
-
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun CustomBannerViewPagerPreview() {
-    TvingTheme {
-    }
-
 }

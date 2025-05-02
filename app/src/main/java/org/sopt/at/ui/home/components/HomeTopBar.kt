@@ -19,6 +19,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
+import org.sopt.at.ui.common.StableImage
 import org.sopt.at.ui.theme.TvingTheme
 import org.sopt.at.utils.clickableWithoutRipple
 
@@ -42,23 +43,14 @@ fun HomeTopBar(
         )
         Spacer(modifier = Modifier.weight(1f))
 
-        Image(
-            painter = painterResource(R.drawable.ic_profile_default),
+        StableImage(
+            drawableResId = R.drawable.ic_profile_default,
             contentDescription = stringResource(R.string.my_profile_button),
             modifier = Modifier
                 .size(20.dp)
                 .clip(RoundedCornerShape(2.dp))
                 .clickableWithoutRipple(onClick = navigateToMyScreen),
             contentScale = ContentScale.Crop,
-
-            )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun Preview() {
-    TvingTheme {
-        HomeTopBar({})
+        )
     }
 }

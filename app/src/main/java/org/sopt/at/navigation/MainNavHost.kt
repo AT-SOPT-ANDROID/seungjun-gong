@@ -46,7 +46,7 @@ fun MainNavHost(
         composable(Search.route) { SearchScreen() }
         composable(History.route) { HistoryScreen() }
         composable(My.route) { MyScreen() }
-        composable(SignIn.route) {
+        composable(SignIn.route) { backStackEntry ->
             SignInScreen(
                 navigateToHomeScreen = { navController.navigateReplaceTo(route = Home.route) },
                 navigateToSignUpScreen = { navController.navigateAddTo(SignUp.route) },
