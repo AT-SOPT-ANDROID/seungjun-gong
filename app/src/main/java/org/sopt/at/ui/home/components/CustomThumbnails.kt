@@ -19,21 +19,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.collections.immutable.ImmutableList
+import org.sopt.at.ui.common.StableImage
 
 @Composable
 fun CustomThumbnails(
-    thumbnailItems: List<Int>,
+    thumbnailItems: ImmutableList<Int>,
     headerText: String,
     modifier: Modifier = Modifier,
     showRanking: Boolean = false,
-    thumbnailDescription: String? = null,
+    thumbnailDescription: String = "",
     defaultHorizontalPadding: Dp = 20.dp,
 ) {
     Column {
@@ -72,7 +75,7 @@ fun ThumbnailCard(
     thumbnailItem: Int,
     rank: Int,
     showRanking: Boolean,
-    thumbnailDescription: String? = null,
+    thumbnailDescription: String = "",
 ) {
     Row(
         verticalAlignment = Alignment.Bottom
@@ -90,13 +93,13 @@ fun ThumbnailCard(
             Spacer(Modifier.width(5.dp))
         }
 
-        Image(
-            painter = painterResource(id = thumbnailItem),
+        StableImage(
+            drawableResId = thumbnailItem,
             contentDescription = thumbnailDescription,
-            contentScale = ContentScale.FillBounds,
             modifier = Modifier
                 .size(width = 100.dp, height = 140.dp)
-                .clip(RoundedCornerShape(4.dp))
+                .clip(RoundedCornerShape(4.dp)),
+            contentScale = ContentScale.FillBounds,
         )
     }
 }

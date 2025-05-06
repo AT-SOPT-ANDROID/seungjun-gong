@@ -49,15 +49,3 @@ fun TvingTextField(
         keyboardOptions = keyboardOptions,
     )
 }
-
-@Preview(showBackground = true)
-@Composable
-private fun Preview() {
-    TvingTheme {
-        TvingTextField(
-            value = "아이디",
-            onValueChange = {},
-            hint = "hinthint",
-        )
-    }
-}

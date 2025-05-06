@@ -79,11 +79,3 @@ fun MyScreen(
 
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun MyScreenPreview() {
-    TvingTheme {
-        MyScreen(id = "아이디")
-    }
-}

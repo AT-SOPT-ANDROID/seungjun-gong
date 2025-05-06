@@ -15,7 +15,6 @@ object SharedPreferencesManager {
         prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
     }
 
-    // 회원가입
     fun registerUser(id: String, password: String) {
         with(prefs.edit()) {
             putString(KEY_USER_ID, id)
@@ -24,7 +23,6 @@ object SharedPreferencesManager {
         }
     }
 
-    // 로그인
     fun login(id: String, password: String): Boolean {
         val savedId = prefs.getString(KEY_USER_ID, null)
         val savedPw = prefs.getString(KEY_USER_PW, null)
@@ -40,12 +38,10 @@ object SharedPreferencesManager {
         }
     }
 
-    // 자동 로그인 여부
     fun isLoggedIn(): Boolean {
         return prefs.getBoolean(KEY_IS_LOGGED_IN, false)
     }
 
-    // 로그아웃
     fun logout() {
         with(prefs.edit()){
             putBoolean(KEY_IS_LOGGED_IN, false)
@@ -53,7 +49,6 @@ object SharedPreferencesManager {
         }
     }
 
-    // 저장된 ID, PW 가져오기
     fun getUserId(): String? = prefs.getString(KEY_USER_ID, null)
     fun getUserPw(): String? = prefs.getString(KEY_USER_PW, null)
 }

@@ -10,12 +10,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
 import org.sopt.at.ui.theme.TvingTheme
@@ -27,13 +27,13 @@ fun PasswordTextField(
 ) {
     var isShowPassword by remember { mutableStateOf(false) }
 
-    val passwordShowState: (Boolean) -> Int = {
-        if (it) {
+    val passwordIconRes =
+        if (isShowPassword) {
             R.drawable.ic_password_on
         } else {
             R.drawable.ic_password_off
         }
-    }
+
 
     TvingTextField(
         value = value,
@@ -47,8 +47,8 @@ fun PasswordTextField(
                 modifier = Modifier.padding(end = 5.dp)
             ) {
                 Icon(
-                    painter = painterResource(
-                        id = passwordShowState(isShowPassword)
+                    imageVector = ImageVector.vectorResource(
+                        id = passwordIconRes
                     ),
                     contentDescription = stringResource(R.string.btn_password_visibility),
                     tint = TvingTheme.colors.gray600,
@@ -59,16 +59,4 @@ fun PasswordTextField(
         else PasswordVisualTransformation()),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun Preview() {
-    TvingTheme {
-        PasswordTextField(
-            value = "비밀번호",
-            onValueChange = {}
-        )
-    }
-
 }

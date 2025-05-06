@@ -7,17 +7,21 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import kotlinx.collections.immutable.persistentListOf
 import org.sopt.at.ui.theme.TvingTheme
 import org.sopt.at.utils.NoRippleInteractionSource
 
@@ -29,15 +33,20 @@ fun MainNavigation(
     val navBackStackEntry by navController.currentBackStackEntryAsState() // 상태
     val currentRoute = navBackStackEntry?.destination?.route
 
-    val items = listOf(
-        MainNavItem.HOME,
-        MainNavItem.SHORTS,
-        MainNavItem.LIVE,
-        MainNavItem.SEARCH,
-        MainNavItem.HISTORY,
-    )
+    val items =
+        persistentListOf(
+            MainNavItem.HOME,
+            MainNavItem.SHORTS,
+            MainNavItem.LIVE,
+            MainNavItem.SEARCH,
+            MainNavItem.HISTORY,
+        )
 
-    val showBottomBar = items.any { it.screenRoute.route == currentRoute }
+    val showBottomBar by remember(currentRoute) {
+        derivedStateOf {
+            items.any { it.screenRoute.route == currentRoute }
+        }
+    }
 
     if (showBottomBar) {
         NavigationBar(
@@ -64,10 +73,10 @@ fun MainNavigation(
                     },
                     icon = {
                         Icon(
-                            painter = painterResource(
+                            imageVector = ImageVector.vectorResource(
                                 id = if (selected) item.activeIcon else item.inactiveIcon
                             ),
-                            contentDescription = null,
+                            contentDescription = stringResource(id = item.labelId),
                             modifier = Modifier
                                 .size(42.dp),
                             tint = if (selected) Color.White else TvingTheme.colors.inactiveGray,
