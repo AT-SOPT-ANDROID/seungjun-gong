@@ -79,7 +79,7 @@ fun SignInScreen(
                 context.getString(R.string.success_signup_message),
                 Toast.LENGTH_SHORT
             ).show()
-            savedStateHandle.remove<Boolean>("signUpSuccess")
+            savedStateHandle?.remove<Boolean>("signUpSuccess")
         }
     }
 
