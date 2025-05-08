@@ -1,4 +1,4 @@
-package org.sopt.at.ui.login
+package org.sopt.at.ui.login.signin
 
 import android.widget.Toast
 import androidx.compose.foundation.background

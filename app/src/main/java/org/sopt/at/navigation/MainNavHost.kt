@@ -10,8 +10,8 @@ import androidx.navigation.compose.composable
 import org.sopt.at.ui.history.HistoryScreen
 import org.sopt.at.ui.home.HomeScreen
 import org.sopt.at.ui.live.LiveScreen
-import org.sopt.at.ui.login.SignInScreen
-import org.sopt.at.ui.login.SignUpScreen
+import org.sopt.at.ui.login.signin.SignInScreen
+import org.sopt.at.ui.login.signup.SignUpScreen
 import org.sopt.at.ui.my.MyScreen
 import org.sopt.at.ui.search.SearchScreen
 import org.sopt.at.ui.shorts.ShortsScreen
