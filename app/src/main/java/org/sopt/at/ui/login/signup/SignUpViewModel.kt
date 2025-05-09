@@ -25,8 +25,8 @@ class SignUpViewModel : ViewModel() {
     private val _step = MutableStateFlow(SignUpStep.ID)
     val step: StateFlow<SignUpStep> = _step.asStateFlow()
 
-    private val _userId = MutableStateFlow("")
-    val uerId: StateFlow<String> = _userId.asStateFlow()
+    private val _loginId = MutableStateFlow("")
+    val loginId: StateFlow<String> = _loginId.asStateFlow()
 
     private val _nickname = MutableStateFlow("")
     val nickname: StateFlow<String> = _nickname.asStateFlow()
@@ -54,8 +54,8 @@ class SignUpViewModel : ViewModel() {
 
     private val authService by lazy { ServicePool.authService }
 
-    fun updateUserId(newId: String) {
-        _userId.value = newId
+    fun updateLoginId(newId: String) {
+        _loginId.value = newId
     }
 
     fun updateNickname(newNickname: String) {
@@ -75,7 +75,7 @@ class SignUpViewModel : ViewModel() {
     }
 
     private fun resetForm() {
-        _userId.value = ""
+        _loginId.value = ""
         _nickname.value = ""
         _password.value = ""
         _step.value = SignUpStep.ID
@@ -86,7 +86,7 @@ class SignUpViewModel : ViewModel() {
 
     private fun requestSignUp() {
         val request = SignUpRequestDto(
-            loginId = _userId.value,
+            loginId = _loginId.value,
             nickname = _nickname.value,
             password = _password.value
         )
@@ -100,10 +100,8 @@ class SignUpViewModel : ViewModel() {
                 response: retrofit2.Response<BaseResponseDto<SignUpResponseDto>>,
             ) {
                 val code = response.code()
-                Log.d("SignUpViewModel", "onResponse: $code")
                 if (response.isSuccessful) {
                     val body: BaseResponseDto<SignUpResponseDto>? = response.body()
-                    Log.d("SignUpViewModel", "on11Response: $body")
                     _step.value = SignUpStep.SUCCESS
                 } else {
                     val errorMessage = try {
@@ -112,7 +110,6 @@ class SignUpViewModel : ViewModel() {
                     } catch (e: Exception) {
                         "알 수 없는 오류가 발생했습니다."
                     }
-
                     setErrorMessage(errorMessage)
                     showDialog()
                 }
@@ -132,7 +129,7 @@ class SignUpViewModel : ViewModel() {
     ) {
         when (_step.value) {
             SignUpStep.ID -> {
-                if (!isValidId(_userId.value)) {
+                if (!isValidId(_loginId.value)) {
                     setIsRuleError(true)
                     return
                 }

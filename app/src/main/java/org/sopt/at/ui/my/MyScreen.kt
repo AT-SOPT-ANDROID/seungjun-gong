@@ -31,7 +31,7 @@ import org.sopt.at.utils.SharedPreferencesManager
 @Composable
 fun MyScreen(
     modifier: Modifier = Modifier,
-    id: String = SharedPreferencesManager.getUserId() ?: "",
+    id: String = "",
 ) {
     val context = LocalContext.current
 

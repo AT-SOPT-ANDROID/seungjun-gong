@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -22,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,6 +44,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import kotlinx.coroutines.launch
@@ -58,14 +61,16 @@ fun SignInScreen(
     navigateToSignUpScreen: () -> Unit,
     navController: NavController,
     modifier: Modifier = Modifier,
+    viewModel: SignInViewModel = viewModel(),
 ) {
     val context = LocalContext.current
 
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
-    var userId by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    val loginId by viewModel.loginId.collectAsState()
+    val password by viewModel.password.collectAsState()
+    val signInResult by viewModel.signInResult.collectAsState()
 
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
 
@@ -83,10 +88,27 @@ fun SignInScreen(
         }
     }
 
+    LaunchedEffect(signInResult) {
+        when (signInResult) {
+            is SignInResult.Success -> {
+                navigateToHomeScreen()
+            }
+            is SignInResult.Failure -> {
+                val errorMessage = (signInResult as SignInResult.Failure).message
+                    snackbarHostState.showSnackbar(
+                        message = errorMessage,
+                        duration = SnackbarDuration.Short
+                    )
+            }
+            null -> {}
+        }
+    }
+
     Scaffold(
         modifier = modifier
             .fillMaxSize()
-            .background(color = Color.Black),
+            .background(color = Color.Black)
+            .imePadding(),
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) {
         Column(
@@ -105,34 +127,19 @@ fun SignInScreen(
             )
             Spacer(modifier = Modifier.height(30.dp))
             TvingTextField(
-                value = userId,
-                onValueChange = { userId = it },
+                value = loginId,
+                onValueChange = viewModel::updateLoginId,
                 hint = stringResource(R.string.tf_id)
             )
             Spacer(modifier = Modifier.height(15.dp))
             PasswordTextField(
                 value = password,
-                onValueChange = { password = it },
+                onValueChange = viewModel::updatePassword,
             )
             Spacer(modifier = Modifier.height(30.dp))
             SignInButton(
-                userId, password,
-                onClick = {
-                    val isSuccess = SharedPreferencesManager.login(
-                        id = userId,
-                        password = password
-                    )
-                    if (isSuccess) {
-                        navigateToHomeScreen()
-                    } else {
-                        scope.launch {
-                            snackbarHostState.showSnackbar(
-                                message = context.getString(R.string.signin_fail_message),
-                                duration = SnackbarDuration.Short
-                            )
-                        }
-                    }
-                }
+                loginId, password,
+                onClick = viewModel::requestSignIn
             )
             Spacer(modifier = Modifier.height(25.dp))
             Row(

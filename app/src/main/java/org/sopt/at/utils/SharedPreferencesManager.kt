@@ -8,7 +8,8 @@ object SharedPreferencesManager {
 
     private const val PREF_NAME = "user_prefs"
     private const val KEY_USER_ID = "user_id"
-    private const val KEY_USER_PW = "user_pw"
+    private const val KEY_LOGIN_ID = "login_id"
+    private const val KEY_LOGIN_PW = "login_pw"
     private const val KEY_IS_LOGGED_IN = "is_logged_in"
 
     fun init(context: Context) {
@@ -17,15 +18,15 @@ object SharedPreferencesManager {
 
     fun registerUser(id: String, password: String) {
         with(prefs.edit()) {
-            putString(KEY_USER_ID, id)
-            putString(KEY_USER_PW, password)
+            putString(KEY_LOGIN_ID, id)
+            putString(KEY_LOGIN_PW, password)
             apply()
         }
     }
 
     fun login(id: String, password: String): Boolean {
-        val savedId = prefs.getString(KEY_USER_ID, null)
-        val savedPw = prefs.getString(KEY_USER_PW, null)
+        val savedId = prefs.getString(KEY_LOGIN_ID, null)
+        val savedPw = prefs.getString(KEY_LOGIN_PW, null)
 
         return if (id == savedId && password == savedPw) {
             with(prefs.edit()) {
@@ -35,6 +36,13 @@ object SharedPreferencesManager {
             true
         } else {
             false
+        }
+    }
+
+    fun saveUserId(id: Int) {
+        with(prefs.edit()) {
+            putInt(KEY_USER_ID, id)
+            apply()
         }
     }
 
@@ -49,6 +57,5 @@ object SharedPreferencesManager {
         }
     }
 
-    fun getUserId(): String? = prefs.getString(KEY_USER_ID, null)
-    fun getUserPw(): String? = prefs.getString(KEY_USER_PW, null)
+    fun getUserId(): Int = prefs.getInt(KEY_USER_ID, -1)
 }

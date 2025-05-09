@@ -17,7 +17,7 @@ fun SignUpScreen(
 ) {
 
     val step by viewModel.step.collectAsState()
-    val userId by viewModel.uerId.collectAsState()
+    val loginId by viewModel.loginId.collectAsState()
     val nickname by viewModel.nickname.collectAsState()
     val password by viewModel.password.collectAsState()
 
@@ -37,8 +37,8 @@ fun SignUpScreen(
             SignUpInputStep(
                 title = stringResource(R.string.sign_up_id_title),
                 hint = stringResource(R.string.tf_id),
-                value = userId,
-                onValueChange = viewModel::updateUserId,
+                value = loginId,
+                onValueChange = viewModel::updateLoginId,
                 errorMessage = stringResource(R.string.sign_up_id_rule),
                 isError = isRuleError,
                 onNextClick = viewModel::nextStep,
@@ -69,8 +69,9 @@ fun SignUpScreen(
                 isPassword = true,
             )
         }
+
         SignUpStep.SUCCESS -> {
-            SharedPreferencesManager.registerUser(userId, password)
+            SharedPreferencesManager.registerUser(loginId, password)
             navigateToSignInScreen()
         }
     }
