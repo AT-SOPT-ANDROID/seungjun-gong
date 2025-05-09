@@ -33,18 +33,9 @@ fun MainNavigation(
     val navBackStackEntry by navController.currentBackStackEntryAsState() // 상태
     val currentRoute = navBackStackEntry?.destination?.route
 
-    val items =
-        persistentListOf(
-            MainNavItem.HOME,
-            MainNavItem.SHORTS,
-            MainNavItem.LIVE,
-            MainNavItem.SEARCH,
-            MainNavItem.HISTORY,
-        )
-
     val showBottomBar by remember(currentRoute) {
         derivedStateOf {
-            items.any { it.screenRoute.route == currentRoute }
+            MainBottomNavItem.entries.any { (it.route::class.qualifiedName ?: "") == currentRoute }
         }
     }
 
@@ -53,8 +44,8 @@ fun MainNavigation(
             modifier = modifier,
             containerColor = Color.Black,
         ) {
-            items.forEach { item ->
-                val selected = currentRoute == item.screenRoute.route
+            MainBottomNavItem.entries.forEach { item ->
+                val selected = currentRoute == (item.route::class.qualifiedName ?: "")
 
                 NavigationBarItem(
                     selected = selected,
@@ -63,7 +54,7 @@ fun MainNavigation(
                         indicatorColor = Color.Transparent,
                     ),
                     onClick = {
-                        navController.navigate(item.screenRoute.route) {
+                        navController.navigate(item.route) {
                             popUpTo(navController.graph.findStartDestination().id) {
                                 saveState = true
                             }

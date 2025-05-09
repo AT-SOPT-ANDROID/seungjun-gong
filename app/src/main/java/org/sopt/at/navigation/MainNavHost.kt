@@ -7,19 +7,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import org.sopt.at.navigation.MainNavRoute.History
-import org.sopt.at.navigation.MainNavRoute.Home
-import org.sopt.at.navigation.MainNavRoute.Live
-import org.sopt.at.navigation.MainNavRoute.My
-import org.sopt.at.navigation.MainNavRoute.Search
-import org.sopt.at.navigation.MainNavRoute.Shorts
-import org.sopt.at.navigation.MainNavRoute.SignIn
-import org.sopt.at.navigation.MainNavRoute.SignUp
 import org.sopt.at.ui.history.HistoryScreen
 import org.sopt.at.ui.home.HomeScreen
 import org.sopt.at.ui.live.LiveScreen
-import org.sopt.at.ui.login.SignInScreen
-import org.sopt.at.ui.login.SignUpScreen
+import org.sopt.at.ui.login.signin.SignInScreen
+import org.sopt.at.ui.login.signup.SignUpScreen
 import org.sopt.at.ui.my.MyScreen
 import org.sopt.at.ui.search.SearchScreen
 import org.sopt.at.ui.shorts.ShortsScreen
@@ -29,34 +21,34 @@ import org.sopt.at.ui.shorts.ShortsScreen
 fun MainNavHost(
     navController: NavHostController,
     paddingValues: PaddingValues,
-    startDestination: String,
+    startDestination: Route,
 ) {
     NavHost(
         navController = navController,
         startDestination = startDestination,
         modifier = Modifier.padding(paddingValues),
     ) {
-        composable(Home.route) {
+        composable<MainBottomNavRoute.Home> {
             HomeScreen(
-                navigateToMyScreen = { navController.navigateAddTo(My.route) }
+                navigateToMyScreen = { navController.navigateAddTo(Route.My) }
             )
         }
-        composable(Shorts.route) { ShortsScreen() }
-        composable(Live.route) { LiveScreen() }
-        composable(Search.route) { SearchScreen() }
-        composable(History.route) { HistoryScreen() }
-        composable(My.route) { MyScreen() }
-        composable(SignIn.route) {
+        composable<MainBottomNavRoute.Shorts> { ShortsScreen() }
+        composable<MainBottomNavRoute.Live> { LiveScreen() }
+        composable<MainBottomNavRoute.Search> { SearchScreen() }
+        composable<MainBottomNavRoute.History> { HistoryScreen() }
+        composable<Route.My> { MyScreen() }
+        composable<Route.SignIn> {
             SignInScreen(
-                navigateToHomeScreen = { navController.navigateReplaceTo(route = Home.route) },
-                navigateToSignUpScreen = { navController.navigateAddTo(SignUp.route) },
+                navigateToHomeScreen = { navController.navigateReplaceTo(route = MainBottomNavRoute.Home) },
+                navigateToSignUpScreen = { navController.navigateAddTo(Route.SignUp) },
                 navController = navController,
             )
         }
-        composable(SignUp.route) {
+        composable<Route.SignUp> {
             SignUpScreen(
                 navigateToSignInScreen = {
-                    navController.navigateReplaceTo(SignIn.route)
+                    navController.navigateReplaceTo(Route.SignIn)
                     navController.currentBackStackEntry?.savedStateHandle?.set(
                         "signUpSuccess",
                         true
@@ -69,7 +61,7 @@ fun MainNavHost(
 }
 
 fun NavHostController.navigateAddTo(
-    route: String,
+    route: Route,
 ) {
     this.navigate(route) {
         popUpTo(route) {
@@ -81,7 +73,7 @@ fun NavHostController.navigateAddTo(
 }
 
 fun NavHostController.navigateReplaceTo(
-    route: String,
+    route: Route,
 ) {
     val currentRoute = this.currentBackStackEntry?.destination?.route ?: return
     this.navigate(route) {

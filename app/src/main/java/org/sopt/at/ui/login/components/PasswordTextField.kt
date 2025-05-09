@@ -27,14 +27,6 @@ fun PasswordTextField(
 ) {
     var isShowPassword by remember { mutableStateOf(false) }
 
-    val passwordIconRes =
-        if (isShowPassword) {
-            R.drawable.ic_password_on
-        } else {
-            R.drawable.ic_password_off
-        }
-
-
     TvingTextField(
         value = value,
         onValueChange = onValueChange,
@@ -48,7 +40,11 @@ fun PasswordTextField(
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(
-                        id = passwordIconRes
+                        id = if (isShowPassword) {
+                            R.drawable.ic_password_on
+                        } else {
+                            R.drawable.ic_password_off
+                        }
                     ),
                     contentDescription = stringResource(R.string.btn_password_visibility),
                     tint = TvingTheme.colors.gray600,
