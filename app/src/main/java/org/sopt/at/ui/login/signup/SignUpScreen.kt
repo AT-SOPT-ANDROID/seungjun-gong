@@ -1,6 +1,7 @@
 package org.sopt.at.ui.login.signup
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
@@ -25,11 +26,28 @@ fun SignUpScreen(
     val errorMessage by viewModel.errorMessage.collectAsState()
     val isDialogShow by viewModel.isDialogShow.collectAsState()
 
+    val signUpResult by viewModel.signUpResult.collectAsState()
+
     if (isDialogShow) {
         SignUpErrorDialog(
             text = errorMessage,
             onDismissRequest = viewModel::dismissDialog
         )
+    }
+
+    LaunchedEffect(signUpResult) {
+        when (signUpResult) {
+            is SignUpResult.Success -> {
+                SharedPreferencesManager.registerUser(loginId, password)
+                navigateToSignInScreen()
+            }
+
+            is SignUpResult.Failure -> {
+                viewModel.showDialog()
+            }
+
+            null -> Unit
+        }
     }
 
     when (step) {
@@ -68,11 +86,6 @@ fun SignUpScreen(
                 onNextClick = viewModel::nextStep,
                 isPassword = true,
             )
-        }
-
-        SignUpStep.SUCCESS -> {
-            SharedPreferencesManager.registerUser(loginId, password)
-            navigateToSignInScreen()
         }
     }
 }

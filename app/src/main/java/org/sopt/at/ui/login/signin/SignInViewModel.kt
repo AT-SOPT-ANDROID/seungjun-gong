@@ -9,15 +9,17 @@ import kotlinx.serialization.json.Json
 import org.sopt.at.data.model.BaseResponseDto
 import org.sopt.at.data.model.SignInRequestDto
 import org.sopt.at.data.model.SignInResponseDto
+import org.sopt.at.data.service.ServicePool
 import org.sopt.at.data.service.ServicePool.authService
 import org.sopt.at.utils.SharedPreferencesManager
 import retrofit2.Callback
 
 class SignInViewModel : ViewModel() {
 
+    private val authService by lazy { ServicePool.authService }
+
     private val _loginId = MutableStateFlow("")
     val loginId: StateFlow<String> = _loginId.asStateFlow()
-
 
     private val _password = MutableStateFlow("")
     val password: StateFlow<String> = _password.asStateFlow()

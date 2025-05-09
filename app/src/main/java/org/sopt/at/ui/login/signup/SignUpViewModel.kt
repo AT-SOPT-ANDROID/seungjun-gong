@@ -1,7 +1,6 @@
 package org.sopt.at.ui.login.signup
 
 import android.util.Log
-import androidx.compose.ui.input.key.Key.Companion.J
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,10 +16,12 @@ import org.sopt.at.utils.RegexUtils.isValidPassword
 import retrofit2.Callback
 
 enum class SignUpStep {
-    ID, NICKNAME, PASSWORD, SUCCESS
+    ID, NICKNAME, PASSWORD
 }
 
 class SignUpViewModel : ViewModel() {
+
+    private val authService by lazy { ServicePool.authService }
 
     private val _step = MutableStateFlow(SignUpStep.ID)
     val step: StateFlow<SignUpStep> = _step.asStateFlow()
@@ -40,10 +41,13 @@ class SignUpViewModel : ViewModel() {
     private val _isRuleError = MutableStateFlow(false)
     val isRuleError: StateFlow<Boolean> = _isRuleError.asStateFlow()
 
+    private val _signUpResult = MutableStateFlow<SignUpResult?>(null)
+    val signUpResult: StateFlow<SignUpResult?> = _signUpResult.asStateFlow()
+
     private val _isDialogShow = MutableStateFlow(false)
     val isDialogShow: StateFlow<Boolean> = _isDialogShow.asStateFlow()
 
-    fun showDialog(){
+    fun showDialog() {
         _isDialogShow.value = true
     }
 
@@ -51,8 +55,6 @@ class SignUpViewModel : ViewModel() {
         _isDialogShow.value = false
         resetForm()
     }
-
-    private val authService by lazy { ServicePool.authService }
 
     fun updateLoginId(newId: String) {
         _loginId.value = newId
@@ -66,7 +68,7 @@ class SignUpViewModel : ViewModel() {
         _password.value = newPassword
     }
 
-    fun setErrorMessage(message: String) {
+    private fun setErrorMessage(message: String) {
         _errorMessage.value = message
     }
 
@@ -91,18 +93,14 @@ class SignUpViewModel : ViewModel() {
             password = _password.value
         )
 
-        authService.signup(
-            request = request
-        ).enqueue(object :
+        authService.signup(request).enqueue(object :
             Callback<BaseResponseDto<SignUpResponseDto>> {
             override fun onResponse(
                 call: retrofit2.Call<BaseResponseDto<SignUpResponseDto>>,
                 response: retrofit2.Response<BaseResponseDto<SignUpResponseDto>>,
             ) {
-                val code = response.code()
                 if (response.isSuccessful) {
-                    val body: BaseResponseDto<SignUpResponseDto>? = response.body()
-                    _step.value = SignUpStep.SUCCESS
+                    _signUpResult.value = SignUpResult.Success
                 } else {
                     val errorMessage = try {
                         val errorBody = response.errorBody()?.string()
@@ -111,7 +109,7 @@ class SignUpViewModel : ViewModel() {
                         "알 수 없는 오류가 발생했습니다."
                     }
                     setErrorMessage(errorMessage)
-                    showDialog()
+                    _signUpResult.value = SignUpResult.Failure
                 }
             }
 
@@ -154,7 +152,11 @@ class SignUpViewModel : ViewModel() {
                 setIsRuleError(false)
                 requestSignUp()
             }
-            SignUpStep.SUCCESS -> Unit
         }
     }
+}
+
+sealed class SignUpResult {
+    data object Success : SignUpResult()
+    data object Failure : SignUpResult()
 }
