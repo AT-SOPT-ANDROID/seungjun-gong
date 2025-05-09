@@ -70,6 +70,8 @@
 
     <!--MY-->
     <string name="title_activity_my">MyActivity</string>
+    <string name="my_profile_image">프로필 이미지</string>
+    <string name="my_edit_profile">프로필 수정하기</string>"
 
     <!--TextField-->
     <string name="tf_id">아이디</string>
