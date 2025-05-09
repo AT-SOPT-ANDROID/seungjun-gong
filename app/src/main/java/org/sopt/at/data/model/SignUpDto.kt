@@ -16,7 +16,7 @@ data class SignUpRequestDto(
 @Serializable
 data class SignUpResponseDto(
     @SerialName("userId")
-    val loginId: String,
+    val loginId: Int,
     @SerialName("nickname")
     val nickname: String,
 )

@@ -35,6 +35,7 @@ fun SignUpInputStep(
     modifier: Modifier = Modifier,
     isPassword: Boolean = false,
     isLoading: Boolean = false,
+    isButtonEnabled: Boolean = value.isNotBlank(),
 ) {
     Column(
         modifier = modifier
@@ -80,7 +81,7 @@ fun SignUpInputStep(
 
         SignUpButton(
             onClick = onNextClick,
-            enabled = !isError
+            enabled = isButtonEnabled
         )
 
         Spacer(modifier = Modifier.height(50.dp))

@@ -6,8 +6,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.sopt.at.R
+import org.sopt.at.ui.login.signup.components.SignUpErrorDialog
 import org.sopt.at.ui.login.signup.components.SignUpInputStep
-import org.sopt.at.utils.RegexUtils
 import org.sopt.at.utils.SharedPreferencesManager
 
 @Composable
@@ -21,6 +21,16 @@ fun SignUpScreen(
     val nickname by viewModel.nickname.collectAsState()
     val password by viewModel.password.collectAsState()
 
+    val isRuleError by viewModel.isRuleError.collectAsState()
+    val errorMessage by viewModel.errorMessage.collectAsState()
+    val isDialogShow by viewModel.isDialogShow.collectAsState()
+
+    if (isDialogShow) {
+        SignUpErrorDialog(
+            text = errorMessage,
+            onDismissRequest = viewModel::dismissDialog
+        )
+    }
 
     when (step) {
         SignUpStep.ID -> {
@@ -30,7 +40,7 @@ fun SignUpScreen(
                 value = userId,
                 onValueChange = viewModel::updateUserId,
                 errorMessage = stringResource(R.string.sign_up_id_rule),
-                isError = !RegexUtils.isValidId(userId),
+                isError = isRuleError,
                 onNextClick = viewModel::nextStep,
             )
         }
@@ -38,30 +48,28 @@ fun SignUpScreen(
         SignUpStep.NICKNAME -> {
             SignUpInputStep(
                 title = stringResource(R.string.sign_up_nickname_title),
-                hint = stringResource(R.string.tf_nickname), // need to change
+                hint = stringResource(R.string.tf_nickname),
                 value = nickname,
                 onValueChange = viewModel::updateNickname,
-                errorMessage = stringResource(R.string.sign_up_id_rule),
-                isError = !RegexUtils.isValidId(nickname), // need to change
+                errorMessage = stringResource(R.string.sign_up_nickname_rule),
+                isError = isRuleError,
                 onNextClick = viewModel::nextStep,
             )
         }
 
         SignUpStep.PASSWORD -> {
-
             SignUpInputStep(
                 title = stringResource(R.string.sign_up_password_title),
                 hint = stringResource(R.string.tf_password),
                 value = password,
                 onValueChange = viewModel::updatePassword,
                 errorMessage = stringResource(R.string.sign_up_password_rule),
-                isError = !RegexUtils.isValidPassword(password),
+                isError = isRuleError,
                 onNextClick = viewModel::nextStep,
                 isPassword = true,
             )
         }
-
-        SignUpStep.COMPLETE -> {
+        SignUpStep.SUCCESS -> {
             SharedPreferencesManager.registerUser(userId, password)
             navigateToSignInScreen()
         }
